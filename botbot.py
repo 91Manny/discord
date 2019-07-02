@@ -2,8 +2,7 @@ import discord
 import random
 import asyncio
 from discord.ext import commands
-
-TOKEN = 'NTgxOTUwODA5Mzc4NTIxMTI4.XQAOuA.wPq1RhoqaQvqqf3gBUlApKNoDMI' 
+from SecretStuff import TOKEN
 
 class MyClient(discord.Client):
     async def on_ready(self):

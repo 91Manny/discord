@@ -1,10 +1,8 @@
 import asyncio
 import discord
 import youtube_dl
-
 from discord.ext import commands
-
-TOKEN = 'NTgxOTUwODA5Mzc4NTIxMTI4.XQAOuA.wPq1RhoqaQvqqf3gBUlApKNoDMI' 
+from SecretStuff import TOKEN
 
 # Suppress noise about console usage from errors
 youtube_dl.utils.bug_reports_message = lambda: ''
@@ -38,7 +36,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
         self.data = data
 
         self.title = data.get('title')
-        self.url = data.get('https://www.youtube.com/watch?v=SXtYbaHP2As')
+        self.url = data.get('url')
 
     @classmethod
     async def from_url(cls, url, *, loop=None, stream=False):
@@ -49,7 +47,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
             # take first item from a playlist
             data = data['entries'][0]
 
-        filename = data['https://www.youtube.com/watch?v=SXtYbaHP2As'] if stream else ytdl.prepare_filename(data)
+        filename = data['url'] if stream else ytdl.prepare_filename(data)
         return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
 
 
@@ -133,4 +131,4 @@ async def on_ready():
     print('------')
 
 bot.add_cog(Music(bot))
-bot.run(TOKEN)
+bot.run(token)
